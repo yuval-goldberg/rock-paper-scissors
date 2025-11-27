@@ -70,11 +70,16 @@ function playGame() {
 
     if (humanScore > computerScore) {
         console.log('You Are The Winner!');
+        return true;
     } else if (humanScore < computerScore) {
         console.log('The Computer Beat You!');
+        return false;
     } else {
         console.log(`It's a Draw!`);
+        return false;
     }
+
+
 }
 
 playGame();
