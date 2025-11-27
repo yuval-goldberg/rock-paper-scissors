@@ -5,8 +5,50 @@ function getComputerChoice() {
     const choices = ['Rock', 'Paper', 'Scissors'];
     let compChoice = Math.floor(Math.random() * 3);
 
-    console.log(compChoice);
+    console.log(`Computer's Choice ${choices[compChoice]}`);
     return choices[compChoice];
 }
 
-console.log(getComputerChoice());
+function getHumanChoice() {
+    let humanChoice = prompt('Enter your choice');
+
+    return humanChoice;
+}
+
+function playRound(humanChoice, computerChoice) {
+    const baseUserChoice = getHumanChoice();
+    const compChoice = getComputerChoice();
+
+    // Making the user's choice readable for the machine
+    const userChoice = baseUserChoice.charAt(0).toUpperCase() + baseUserChoice.slice(1).toLowerCase();
+
+    if (userChoice == compChoice) {
+        console.log('Draw');
+    } else if (userChoice == 'Rock') {
+        if (compChoice == 'Paper') {
+            console.log('Computer Wins!');
+            computerScore++;
+        } else if (compChoice == 'Scissors') {
+            console.log('You Win!');
+            humanScore++;
+        }
+    } else if (userChoice == 'Paper') {
+        if (compChoice == 'Scissors') {
+            console.log('Computer Wins!');
+            computerScore++;
+        } else if (compChoice == 'Rock') {
+            console.log('You Win!');
+            humanScore++;
+        }
+    } else if (userChoice == 'Scissors') {
+        if (compChoice == 'Rock') {
+            console.log('Computer Wins!');
+            computerScore++;
+        } else if (compChoice == 'Paper') {
+            console.log('You Win!');
+            humanScore++;
+        }
+    }
+}
+
+playRound();
