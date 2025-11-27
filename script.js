@@ -19,7 +19,7 @@ function playRound(humanChoice, computerChoice) {
     const baseUserChoice = getHumanChoice();
     const compChoice = getComputerChoice();
 
-    let userIsWinning = true;
+    let scoreStatus = "Draw";
 
     // Making the user's choice readable for the machine
     const userChoice = baseUserChoice.charAt(0).toUpperCase() + baseUserChoice.slice(1).toLowerCase();
@@ -29,34 +29,52 @@ function playRound(humanChoice, computerChoice) {
     } else if (userChoice == 'Rock') {
         if (compChoice == 'Paper') {
             console.log(`You lose! ${compChoice} beats ${userChoice}`);
-            computerScore++;
-
-            userIsWinning = false;
+            scoreStatus = "Computer";
         } else if (compChoice == 'Scissors') {
             console.log('You Win!');
-            humanScore++;
+            scoreStatus = "User";
         }
     } else if (userChoice == 'Paper') {
         if (compChoice == 'Scissors') {
             console.log(`You lose! ${compChoice} beats ${userChoice}`);
-            computerScore++;
-
-            userIsWinning = false;
+            scoreStatus = "Computer";
         } else if (compChoice == 'Rock') {
             console.log('You Win!');
-            humanScore++;
+            scoreStatus = "User";
         }
     } else if (userChoice == 'Scissors') {
         if (compChoice == 'Rock') {
             console.log(`You lose! ${compChoice} beats ${userChoice}`);
-            computerScore++;
-
-            userIsWinning = false;
+            scoreStatus = "Computer";
         } else if (compChoice == 'Paper') {
             console.log('You Win!');
-            humanScore++;
+            scoreStatus = "User";
         }
     }
-
-    return userIsWinning;
+    return scoreStatus;
 }
+
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        const gameResult = playRound();
+
+        if (gameResult == "User") {
+            humanScore++;
+        } else if (gameResult == "Computer") {
+            computerScore++;
+        }
+
+        //Debbuging 
+        console.log(humanScore, computerScore);
+    }
+
+    if (humanScore > computerScore) {
+        console.log('You Are The Winner!');
+    } else if (humanScore < computerScore) {
+        console.log('The Computer Beat You!');
+    } else {
+        console.log(`It's a Draw!`);
+    }
+}
+
+playGame();
