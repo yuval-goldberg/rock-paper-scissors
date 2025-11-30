@@ -1,0 +1,132 @@
+:root {
+    /* Background base colors  */
+    --pastel-purple: #cb84e0;
+    --pastel-blue: #777df2;
+}
+
+body {
+    /* Reseting default settings on the page's body */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    /* Setting the moving background */
+    background-color: var(--pastel-purple);
+    background-image: radial-gradient(var(--pastel-blue), var(--pastel-purple));
+    min-height: 90vh;
+    background-size: 300% 300%;
+    animation: moving-background 10s alternate infinite;
+
+    /* Setting Font */
+    font-family: "Inter", sans-serif;
+    color: white;
+}
+
+/* Moving background animation */
+@keyframes moving-background {
+    from {
+        background-position: 0%;
+    }
+
+    to {
+        background-position: 100%;
+    }
+}
+
+button {
+    font-family: "Inter", sans-serif;
+}
+
+.head-title {
+    margin: 50px 50px 20px 50px;
+    text-align: center;
+}
+
+.sub-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.option-selector,
+.round-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.option-selector {
+    gap: 16px;
+    padding: 32px;
+}
+
+/* Option selector button designing */
+.option-btn {
+    /* Basic properties */
+    width: 200px;
+    height: 200px;
+    font-family: "Inter", sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    border: 5px solid white;
+    border-radius: 10%;
+    background-color: transparent;
+
+    /* Setting transition duration */
+    transition: 0.1s;
+}
+
+.option-btn:hover {
+    border: 7px solid #67aef0;
+    box-shadow: 0 0 25px #ffffff;
+}
+
+/* Play button designing */
+.play-btn {
+    /* Basic properties */
+    padding: 12px 70px;
+    font-size: 28px;
+    font-weight: bold;
+    border: 5px solid white;
+    border-radius: 20px;
+    background-color: #67aef0;
+    color: white;
+    border-color: white;
+
+    /* Setting transition duration */
+    transition: 0.1s;
+}
+
+.play-btn:hover {
+    box-shadow: 0 0 15px #ffffff;
+    background-color: white;
+    color: #67aef0;
+    border-color: #67aef0;
+}
+
+.result-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+
+    /* Debug flexbox */
+    /* border: 2px solid red; */
+
+}
+
+.disabled:hover {
+    all: none;
+    /* box-shadow: none !important;
+    background-color: rgb(241, 176, 55);
+    color: inherit !important;
+    border-color: inherit !important; */
+}
+
+
+.disabled {
+    background-color: rgb(241, 176, 55);
+}

@@ -1,85 +1,71 @@
-let humanScore = 0;
-let computerScore = 0;
+// Referncing DOM elements
+// Buttons
+const optionBtn = document.querySelectorAll('.option-btn')
+const playBtn = document.querySelector('.play-btn')
 
+// Score text
+const userScoreText = document.getElementById('user-score')
+const computerScoreText = document.getElementById('computer-score')
+const subTitle = document.querySelector('.sub-title')
+
+// Defining scores
+let userScore = 0
+let computerScore = 0
+
+let baseUserChoice = null
+
+// Get computer choice by random number
 function getComputerChoice() {
-    const choices = ['Rock', 'Paper', 'Scissors'];
-    let compChoice = Math.floor(Math.random() * 3);
+    const choices = ['rock', 'paper', 'scissors']
+    let compChoice = Math.floor(Math.random() * 3)
 
-    console.log(`Computer's Choice ${choices[compChoice]}`);
-    return choices[compChoice];
+    console.log(`Computer's Choice ${choices[compChoice]}`)
+    return choices[compChoice]
 }
 
-function getHumanChoice() {
-    let humanChoice = prompt('Enter your choice');
+// Applying for each of the option buttons the event handler of getting the user's choice
+optionBtn.forEach(function getHumanChoice(element) {
+    element.addEventListener('click', (event) => {
+        baseUserChoice = element.id
+        subTitle.textContent = `${baseUserChoice.toUpperCase()} Locked!`
+    })
+})
 
-    return humanChoice;
-}
+// Play round function that returns who won on this particular round
+function playRound() {
 
-function playRound(humanChoice, computerChoice) {
-    const baseUserChoice = getHumanChoice();
+    const userChoice = baseUserChoice;
     const compChoice = getComputerChoice();
 
-    let scoreStatus = "Draw";
+    if (userChoice === null) {
+        alert('Choose one of the options!')
+    } else if ((userChoice === 'rock' && compChoice === 'paper' ||
+        userChoice === 'paper' && compChoice === 'scissors' ||
+        userChoice === 'scissors' && compChoice === 'rock')) {
 
-    // Making the user's choice readable for the machine
-    const userChoice = baseUserChoice.charAt(0).toUpperCase() + baseUserChoice.slice(1).toLowerCase();
+        computerScore++
+        computerScoreText.textContent = computerScore
+        alert(`You lose! ${compChoice} beat ${userChoice}`)
 
-    if (userChoice == compChoice) {
-        console.log('Draw');
-    } else if (userChoice == 'Rock') {
-        if (compChoice == 'Paper') {
-            console.log(`You lose! ${compChoice} beats ${userChoice}`);
-            scoreStatus = "Computer";
-        } else if (compChoice == 'Scissors') {
-            console.log('You Win!');
-            scoreStatus = "User";
-        }
-    } else if (userChoice == 'Paper') {
-        if (compChoice == 'Scissors') {
-            console.log(`You lose! ${compChoice} beats ${userChoice}`);
-            scoreStatus = "Computer";
-        } else if (compChoice == 'Rock') {
-            console.log('You Win!');
-            scoreStatus = "User";
-        }
-    } else if (userChoice == 'Scissors') {
-        if (compChoice == 'Rock') {
-            console.log(`You lose! ${compChoice} beats ${userChoice}`);
-            scoreStatus = "Computer";
-        } else if (compChoice == 'Paper') {
-            console.log('You Win!');
-            scoreStatus = "User";
-        }
-    }
-    return scoreStatus;
-}
-
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        const gameResult = playRound();
-
-        if (gameResult == "User") {
-            humanScore++;
-        } else if (gameResult == "Computer") {
-            computerScore++;
-        }
-
-        //Debbuging 
-        console.log(humanScore, computerScore);
-    }
-
-    if (humanScore > computerScore) {
-        console.log('You Are The Winner!');
-        return true;
-    } else if (humanScore < computerScore) {
-        console.log('The Computer Beat You!');
-        return false;
+    } else if (userChoice === compChoice) {
+        alert(`Draw! The computer chose ${compChoice}`)
     } else {
-        console.log(`It's a Draw!`);
-        return false;
+        userScore++
+        userScoreText.textContent = userScore
+        alert(`You Win! ${userChoice} beat ${compChoice}`)
     }
 
-
+    if (userScore >= 5 || computerScore >= 5) {
+        if (userScore > computerScore) {
+            subTitle.textContent = 'You Win!'
+        } else {
+            subTitle.textContent = 'You Lose!'
+        }
+        playBtn.disabled = true
+        playBtn.classList.toggle('disabled')
+        playBtn.textContent = 'GAME OVER'
+    }
 }
 
-playGame();
+// Play button -> play round
+playBtn.addEventListener('click', playRound)
